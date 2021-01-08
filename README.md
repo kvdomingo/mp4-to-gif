@@ -9,6 +9,8 @@ A simple script to convert short videos to GIFs.
 pip install -r requirements.txt
 ```
 
+1.5 Install latest version of [ImageMagick](https://imagemagick.org/script/download.php) (optional, recommended) for higher quality GIFs
+
 2. Place your video in the project root.
 
 3. Run the following:
