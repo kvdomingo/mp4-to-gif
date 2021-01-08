@@ -1,0 +1,10 @@
+__pycache__/
+.idea/
+.env
+env/
+venv/
+.py[cod]
+
+# Media
+*.mp4
+*.gif
