@@ -39,5 +39,10 @@ def save_file(filename: str, frames: List[np.array], fps: float):
         ims.append([im])
     anim = animation.ArtistAnimation(fig, ims)
     savename = f'{"".join(filename.split(".")[:-1])}.gif'
-    anim.save(savename, writer='imagemagick', fps=int(fps))
+    try:
+        # assuming ImageMagick installed
+        anim.save(savename, writer='imagemagick', fps=int(fps))
+    except Exception as e:
+        # fallback to default Pillow
+        anim.save(savename, writer='pillow', fps=int(fps))
     plt.close(fig)
