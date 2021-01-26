@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 3. Run the following:
 ```commandline
-python mp42gif.py -f FILENAME.ext
+python mp42gif.py -f FILENAME.mp4 -c 90 -o OUTPUT_FILENAME.gif 
 ```
 
-4. Output will also be in the project root and will have the same filename.
+4. The `-c` (compression) and `-o` (output filename) flags are optional. Omitting the compression flag will not apply any compression to the output. Omitting the output filename will use the same filename as the source file.
