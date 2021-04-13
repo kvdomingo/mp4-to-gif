@@ -16,7 +16,7 @@ TOTAL_STEPS = 5
 INITIAL_TIME = time()
 
 
-def read_file(filename: str, compression: int, output: str) -> Tuple[List[np.array], float]:
+def read_file(filename: str, compression: float, output: str) -> Tuple[List[np.array], float]:
     files = os.listdir(BASE_DIR)
     if output in files:
         proceed = input(f'{output} already exists in directory. Proceed and overwrite? [y/N] ')
@@ -79,7 +79,7 @@ def save_file(filename: str, frames: List[np.array], fps: float):
     end_time = time()
     delta_time = end_time - INITIAL_TIME
     if delta_time >= 60:
-        delta_min = int(delta_time / 60)
+        delta_min = delta_time // 60
         delta_sec = round(delta_time % 60, 2)
         delta_str = f'{delta_min} min {delta_sec} s'
     else:
