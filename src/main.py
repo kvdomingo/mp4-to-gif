@@ -39,14 +39,14 @@ def read_file(filename: str, compression: float, output: str) -> Tuple[List[np.a
     print(f'(3/{TOTAL_STEPS}) Compressing frames')
     if compression < 100:
         height, width, _ = frames[0].shape
-        height = int(height * compression / 100)
-        width = int(width * compression / 100)
+        height = int(round(height * compression / 100))
+        width = int(round(width * compression / 100))
         frames = list(map(lambda x: cv.resize(x, (width, height)), frames))
     cap.release()
     return frames, fps
 
 
-def save_file(filename: str, frames: List[np.array], fps: float):
+def save_file(filename: str, frames: List[np.array], fps: float, backend: str):
     print(f'(4/{TOTAL_STEPS}) Assembling frames')
     height, width, _ = frames[0].shape
     dpi = 100
@@ -55,20 +55,15 @@ def save_file(filename: str, frames: List[np.array], fps: float):
     ax = plt.Axes(fig, [0, 0, 1, 1])
     ax.set_axis_off()
     fig.add_axes(ax)
-    # ax = fig.add_subplot(111)
     for i, frame in enumerate(tqdm(frames)):
         im = ax.imshow(frame, animated=True)
-        # ax.grid(0)
-        # ax.axis('off')
-        # ax.autoscale_view('tight')
         ims.append([im])
     anim = animation.ArtistAnimation(fig, ims)
     savename = f'{"".join(filename.split(".")[:-1])}.gif'
 
     print(f'(5/{TOTAL_STEPS}) Rendering GIF')
     try:
-        # assuming ImageMagick installed
-        anim.save(savename, writer='imagemagick', fps=int(fps))
+        anim.save(savename, writer=backend, fps=int(fps))
     except Exception as e:
         # fallback to default backend
         print(e)
